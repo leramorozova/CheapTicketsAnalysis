@@ -1,31 +1,7 @@
-from credentials import TOKEN
+import os
+from collections import namedtuple
 
-popular_directions = [
-    "BJS",  # Beijing
-    "BUH",  # Bucharest
-    "BUE",  # Buenos Aires
-    "CHI",  # Chicago
-    "JKT",  # Jakarta
-    "LON",  # London
-    "MIL",  # Milan
-    "YMQ",  # Montreal
-    "MOW",  # Moscow
-    "NYC",  # New York City
-    "OSA",  # Osaka
-    "PAR",  # Paris
-    "RIO",  # Rio de Janeiro
-    "ROM",  # Rome
-    "SAO",  # São Paulo
-    "SPK",  # Sapporo
-    "SEL",  # Seoul
-    "STO",  # Stockholm
-    "TCI",  # Tenerife
-    "TYO",  # Tokyo
-    "YTO",  # Toronto
-    "WAS"  # Washington
-]
 
-date = "2019-11"
 uri = 'https://api.travelpayouts.com/v1/prices/calendar'
 default_params = {
     "depart_date": "2019-11",
@@ -35,6 +11,12 @@ default_params = {
     "currency": "USD"
 }
 
+TOKEN = os.environ.get("AVIASALES_TOKEN")
+if not TOKEN:
+    raise KeyError("Not Authenticated: AVIASALES_TOKEN is not provided in env.")
+
 headers = {
   'X-Access-Token': TOKEN
 }
+
+AirportData = namedtuple("AirportData", ["IATA", "ICAO", "name", "city", "flag", "size", "passengers", "country"])
