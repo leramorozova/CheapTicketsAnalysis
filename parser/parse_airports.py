@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 from tqdm import tqdm
 from typing import List
 
-from constants import AirportData
+from parser.constants import AirportData
 
 
 def parse_airports(amount_of_airports: int, sizes: List[str], verbose: bool) -> List[AirportData]:
