@@ -1,4 +1,5 @@
 import sys
+import os
 from itertools import permutations
 import pytest
 from parser.path_finder import PathFinder
@@ -6,7 +7,9 @@ from parser.path_finder import PathFinder
 
 @pytest.fixture
 def path_finder_obj():
-    return PathFinder('../data/data3.csv', 'cp1251')
+    assert os.path.exists('../data/data.csv'), \
+        "Path '../data/data.csv' does not exist!"
+    return PathFinder('../data/data.csv', 'cp1251')
 
 
 @pytest.fixture
@@ -20,10 +23,10 @@ def test_paths_exist(path_finder_obj, paths_map):
     for city_1, city_2 in permutations(all_cities, 2):
         path = path_finder_obj.find_path(city_1, city_2)
         computed_price = 0 if path.stages else sys.maxsize
-        prev = city_1
+        prev = city_1.lower()
         for cur_city in path.stages[1:]:
-            computed_price += paths_map[prev][cur_city]
-            prev = cur_city
+            computed_price += paths_map[prev][cur_city.lower()]
+            prev = cur_city.lower()
         assert computed_price == path.price, \
             f"""Error while computing path from '{city_1}' to '{city_2}'! 
               Path: {path}, declared price: {path.price}, 

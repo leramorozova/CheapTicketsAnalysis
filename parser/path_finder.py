@@ -12,6 +12,15 @@ class Path:
     price: int
     stages: Tuple[AnyStr]
 
+    def __bool__(self):
+        return bool(self.stages)
+
+    def __str__(self):
+        if not self:
+            return "Path does not exists"
+        return f"Price: {self.price}, route: " \
+               f"{'->'.join(map(lambda s: s.capitalize(), self.stages))}"
+
 
 class PathFinder:
 
@@ -35,10 +44,13 @@ class PathFinder:
                      as_index=False).min()
         paths_map = defaultdict(lambda: defaultdict(lambda: sys.maxsize))
         for row in min_price_df.itertuples():
-            paths_map[row[1]][row[2]] = row[3]
+            paths_map[row[1].lower()][row[2].lower()] = row[3]
         return paths_map
 
     def find_path(self, v_from: AnyStr, v_to: AnyStr) -> Path:
+        v_from = v_from.lower()
+        v_to = v_to.lower()
+
         paths_map = self.get_paths_map()
         visited = set()
         dists = defaultdict(lambda: sys.maxsize)
@@ -59,3 +71,5 @@ class PathFinder:
             visited.add(cur_v)
 
         return Path(dists[v_to], routes[v_to])
+
+
