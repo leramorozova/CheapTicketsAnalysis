@@ -1,5 +1,5 @@
 import argparse
-from path_finder import PathFinder
+from path_finder.path_finder import PathFinder
 
 
 CURRENT_DATASET = '../data/data.csv'

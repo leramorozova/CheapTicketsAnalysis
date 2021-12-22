@@ -2,7 +2,7 @@ import sys
 import os
 from itertools import permutations
 import pytest
-from parser.path_finder import PathFinder
+from path_finder.path_finder import PathFinder
 
 
 @pytest.fixture
