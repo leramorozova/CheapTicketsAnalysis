@@ -1,5 +1,5 @@
 import argparse
-from path_finder.path_finder import PathFinder
+from algorithm import PathFinder
 
 
 CURRENT_DATASET = '../data/data.csv'
@@ -35,3 +35,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+    # python3 show_optimal_route.py -o "Chelyabinsk" -d "Surgut"
+    # python3 show_optimal_route.py -o "Mineralnyye Vody" -d "Salekhard"
+    # python3 show_optimal_route.py -o "Mineralnyye Vody" -d "Lensk"
+    # python3 show_optimal_route.py -o "Perm" -d "Tomsk"
